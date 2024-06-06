@@ -1,0 +1,11 @@
+def func1(x):
+    return cos(10*2*math.pi*x)+0.5*cos(5*2*math.pi*x + 3.14/6) + cos(25 * 2*math.pi*x) + 6 * cos(40 * 2 * math.pi*x + 3.14/2) + 3 * cos(180 * 2 * math.pi * x + 3.14/3) + cos(400 * 2 * math.pi * x + 3.14/20) + 1.5 * cos(250 * 2 * math.pi * x + 3.14/10)
+
+def func2(x):
+    return 1.1 * cos(20 * 2 * math.pi * x - 0.5) + 0.8 * cos(100 * 2*math.pi * x + 0.5) + 2 * cos(90 *2*math.pi * x) + 1.5 * cos(15 * 2 * math.pi * x) + 1.5 * cos(50 * 2 * math.pi * x)
+
+def func3(x):
+    return 1.4 * cos(404 * 2 * math.pi * x - 0.5) + 2.0 * cos(32 * 2*math.pi * x + 0.5) + 1.5 * cos(13 *2*math.pi * x) + 0.7 * cos(228 * 2 * math.pi * x) + 0.3 * cos(191 * 2 * math.pi * x + 0.75)
+
+def func4(x):
+    return 5 * cos(350 * 2 * math.pi * x - 0.45) + 1 * cos(100 * 2*math.pi * x + 0.15) + 2.5 * cos(150 *2*math.pi * x) + 3.0 * cos(250 * 2 * math.pi * x) + 1.5 * cos(500 * 2 * math.pi * x + 0.45) + 4 * cos(400 * 2 * math.pi * x + 0.75)
