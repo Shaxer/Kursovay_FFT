@@ -32,6 +32,16 @@ public:
     void handleShowAmplitudes();
 
 private:
+    void HandleModeChange();
+
+    enum SelectOptions {
+        Nothing,
+        Amplitudes,
+        Phases
+    };
+
+    int selected{Nothing};
+
     Ui::MainWindow *ui;
     AppModel* model;
     QPushButton* file_selector;

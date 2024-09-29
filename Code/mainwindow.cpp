@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
     discretization = new QLabel(this);
     discretization->resize(200, 40);
     discretization->move(640, 5);
-    discretization->setText("Discretization:");
+    discretization->setText("Sample rate:");
 
 }
 
@@ -102,9 +102,9 @@ void MainWindow::handleClick() {
         min_val = ceil(min_val);
         max_val = ceil(max_val);
         ch->axes(Qt::Vertical).first()->setRange(min_val, max_val);
-        ch->axes(Qt::Horizontal).first()->setTitleText("Time");
-        ch->axes(Qt::Vertical).first()->setTitleText("Volt");
-        std::string new_msg = "Discretization: " + std::to_string(discretization);
+        ch->axes(Qt::Horizontal).first()->setTitleText("Time, sec");
+        ch->axes(Qt::Vertical).first()->setTitleText("Amplitude, V");
+        std::string new_msg = "Sample rate: " + std::to_string(discretization);
         this->discretization->setText(QString::fromStdString(new_msg));
     } else {
         QMessageBox msgBox;
@@ -162,10 +162,12 @@ void MainWindow::handleShowPhases() {
     bar_ch->setTitle(QString::fromStdString(s));
     bar_ch->createDefaultAxes();
     bar_ch->axes(Qt::Horizontal).first()->setRange(0, amplitudes.size() / 2);
-    bar_ch->axes(Qt::Horizontal).first()->setTitleText("Frequency");
+    bar_ch->axes(Qt::Horizontal).first()->setTitleText("Frequency, Hz");
     bar_ch->axes(Qt::Vertical).first()->setRange(-2 * 3.14, 2 * 3.14);
-    bar_ch->axes(Qt::Vertical).first()->setTitleText("Radians");
+    bar_ch->axes(Qt::Vertical).first()->setTitleText("Phase, Rad");
 
+    selected = Phases;
+    HandleModeChange();
 }
 
 
@@ -198,13 +200,27 @@ void MainWindow::handleShowAmplitudes() {
     std::string s = "Amplitudes spectrum";
     bar_ch->setTitle(QString::fromStdString(s));
     bar_ch->createDefaultAxes();
-    bar_ch->axes(Qt::Horizontal).first()->setTitleText("Frequency");
+    bar_ch->axes(Qt::Horizontal).first()->setTitleText("Frequency, Hz");
     bar_ch->axes(Qt::Horizontal).first()->setRange(0, amplitudes.size()/2);
     max_amp *= 1.1;
     max_amp = ceil(max_amp);
     bar_ch->axes(Qt::Vertical).first()->setRange(0, max_amp);
-    bar_ch->axes(Qt::Vertical).first()->setTitleText("Volt");
+    bar_ch->axes(Qt::Vertical).first()->setTitleText("Amplitude, V");
    // ((QValueAxis*)bar_ch->axes(Qt::Vertical).first())->setTickCount(int(max_amp) + 1);
 
+    selected = Amplitudes;
+    HandleModeChange();
 }
 
+void MainWindow::HandleModeChange() {
+    if (selected == Amplitudes) {
+        build_amplitudes_spectr->setDisabled(true);
+        build_phases_spectr->setDisabled(false);
+    } else if (selected == Phases) {
+        build_phases_spectr->setDisabled(true);
+        build_amplitudes_spectr->setDisabled(false);
+    } else {
+        build_amplitudes_spectr->setDisabled(false);
+        build_phases_spectr->setDisabled(false);
+    }
+}
