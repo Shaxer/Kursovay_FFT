@@ -22,7 +22,7 @@ public:
     //Метод, который вычисляет амплитудный спектр
     std::vector<long double> CalcAmplitudesSpectr(size_t second_index) {
         std::vector<long double> amplitudes;
-        auto fft_output = FFTSec(second_index);
+        std::vector<fft_type> fft_output = FFTSec(second_index);
         for (auto& elem : fft_output) {
            amplitudes.push_back(2* std::abs(elem) / 1000.);
         }
@@ -30,7 +30,7 @@ public:
     }
     //Метод, который вычисляет фазовый спектр
     std::vector<long double> CalcPhasesSpectr(size_t second_index) {
-        auto fft_output = FFTSec(second_index);
+        std::vector<fft_type> fft_output = FFTSec(second_index);
         std::vector<long double> phases;
         //Итерируется по вектору
         for (auto& elem : fft_output) {
